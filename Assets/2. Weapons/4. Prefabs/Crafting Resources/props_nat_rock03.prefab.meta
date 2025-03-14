@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 7538b2ac5c949fb4aaed3317597540c6
+labels:
+- Ingridient
+- Junk
+- Resource
+- Rock
+- Scrap
+timeCreated: 1549275776
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Crafting Resources/props_nat_rock03.prefab
+  uploadId: 475763

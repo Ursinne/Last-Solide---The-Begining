@@ -1,0 +1,205 @@
+fileFormatVersion: 2
+guid: 9f2dd62fd910f3e40a472dd67ce7d739
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: gear01
+    100002: gear01.001
+    100004: gear01.004
+    100006: gear01.005
+    100008: nail01
+    100010: nail01.002
+    100012: nail02
+    100014: nail02.002
+    100016: pipe01
+    100018: pipe01.002
+    100020: pipe02
+    100022: pipe02.002
+    100024: scrap01
+    100026: scrap01.002
+    100028: scrap02
+    100030: scrap02.002
+    100032: scrap03
+    100034: scrap03.002
+    100036: //RootNode
+    400000: gear01
+    400002: gear01.001
+    400004: gear01.004
+    400006: gear01.005
+    400008: nail01
+    400010: nail01.002
+    400012: nail02
+    400014: nail02.002
+    400016: pipe01
+    400018: pipe01.002
+    400020: pipe02
+    400022: pipe02.002
+    400024: scrap01
+    400026: scrap01.002
+    400028: scrap02
+    400030: scrap02.002
+    400032: scrap03
+    400034: scrap03.002
+    400036: //RootNode
+    2300000: gear01
+    2300002: gear01.001
+    2300004: gear01.004
+    2300006: gear01.005
+    2300008: nail01
+    2300010: nail01.002
+    2300012: nail02
+    2300014: nail02.002
+    2300016: pipe01
+    2300018: pipe01.002
+    2300020: pipe02
+    2300022: pipe02.002
+    2300024: scrap01
+    2300026: scrap01.002
+    2300028: scrap02
+    2300030: scrap02.002
+    2300032: scrap03
+    2300034: scrap03.002
+    3300000: gear01
+    3300002: gear01.001
+    3300004: gear01.004
+    3300006: gear01.005
+    3300008: nail01
+    3300010: nail01.002
+    3300012: nail02
+    3300014: nail02.002
+    3300016: pipe01
+    3300018: pipe01.002
+    3300020: pipe02
+    3300022: pipe02.002
+    3300024: scrap01
+    3300026: scrap01.002
+    3300028: scrap02
+    3300030: scrap02.002
+    3300032: scrap03
+    3300034: scrap03.002
+    4300000: scrap01.002
+    4300002: scrap02.002
+    4300004: scrap03.002
+    4300006: pipe01.002
+    4300008: pipe02.002
+    4300010: nail01.002
+    4300012: nail02.002
+    4300014: gear01.005
+    4300016: gear01.004
+    4300018: gear01.001
+    4300020: gear01
+    4300022: nail02
+    4300024: nail01
+    4300026: pipe02
+    4300028: pipe01
+    4300030: scrap03
+    4300032: scrap02
+    4300034: scrap01
+    6400000: gear01
+    6400002: gear01.001
+    6400004: gear01.004
+    6400006: gear01.005
+    6400008: nail01
+    6400010: nail01.002
+    6400012: nail02
+    6400014: nail02.002
+    6400016: pipe01
+    6400018: pipe01.002
+    6400020: pipe02
+    6400022: pipe02.002
+    6400024: scrap01
+    6400026: scrap01.002
+    6400028: scrap02
+    6400030: scrap02.002
+    6400032: scrap03
+    6400034: scrap03.002
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.5
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Meshes/Crafting Resources/metal_scraps.fbx
+  uploadId: 475763

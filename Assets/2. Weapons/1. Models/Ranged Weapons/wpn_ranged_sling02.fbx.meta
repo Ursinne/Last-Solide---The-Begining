@@ -1,0 +1,353 @@
+fileFormatVersion: 2
+guid: fe13472a46400994fb36281a29f22f04
+timeCreated: 1549036248
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature_sling02
+    100002: Bone.001
+    100004: Bone.002
+    100006: Bone.003
+    100008: Bone.004
+    100010: Bone.005
+    100012: Bone.006
+    100014: Bone.007
+    100016: Bone.009
+    100018: Bone.010
+    100020: Bone.011
+    100022: Bone.012
+    100024: Bone.013
+    100026: Bone.014
+    100028: Bone.015
+    100030: IK Left
+    100032: IK Right
+    100034: Root
+    100036: Rubber.001
+    100038: Target
+    100040: //RootNode
+    100042: wpn_ranged_sling02
+    400000: Armature_sling02
+    400002: Bone.001
+    400004: Bone.002
+    400006: Bone.003
+    400008: Bone.004
+    400010: Bone.005
+    400012: Bone.006
+    400014: Bone.007
+    400016: Bone.009
+    400018: Bone.010
+    400020: Bone.011
+    400022: Bone.012
+    400024: Bone.013
+    400026: Bone.014
+    400028: Bone.015
+    400030: IK Left
+    400032: IK Right
+    400034: Root
+    400036: Rubber.001
+    400038: Target
+    400040: //RootNode
+    400042: wpn_ranged_sling02
+    2300000: wpn_ranged_sling02
+    3300000: wpn_ranged_sling02
+    4300000: wpn_ranged_sling02
+    4300002: Rubber.001
+    7400000: Sling02_draw
+    7400002: Sling02_shoot
+    7400004: Sling02_hold
+    9500000: //RootNode
+    13700000: Rubber.001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Sling02_draw
+      takeName: Armature_sling02|sling_shoot
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_sling02
+        weight: 1
+      - path: Armature_sling02/Root
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006/Bone.007
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013/Bone.014
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013/Bone.014/Bone.015
+        weight: 1
+      - path: Armature_sling02/Root/Target
+        weight: 1
+      - path: Armature_sling02/Root/Target/IK Left
+        weight: 1
+      - path: Armature_sling02/Root/Target/IK Right
+        weight: 1
+      - path: Armature_sling02/wpn_ranged_sling02
+        weight: 1
+      - path: Rubber.001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Sling02_shoot
+      takeName: Armature_sling02|sling_shoot
+      firstFrame: 15
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_sling02
+        weight: 1
+      - path: Armature_sling02/Root
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006/Bone.007
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013/Bone.014
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013/Bone.014/Bone.015
+        weight: 1
+      - path: Armature_sling02/Root/Target
+        weight: 1
+      - path: Armature_sling02/Root/Target/IK Left
+        weight: 1
+      - path: Armature_sling02/Root/Target/IK Right
+        weight: 1
+      - path: Armature_sling02/wpn_ranged_sling02
+        weight: 1
+      - path: Rubber.001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Sling02_hold
+      takeName: Armature_sling02|sling_shoot
+      firstFrame: 15
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_sling02
+        weight: 1
+      - path: Armature_sling02/Root
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006
+        weight: 1
+      - path: Armature_sling02/Root/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006/Bone.007
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013/Bone.014
+        weight: 1
+      - path: Armature_sling02/Root/Bone.009/Bone.010/Bone.011/Bone.012/Bone.013/Bone.014/Bone.015
+        weight: 1
+      - path: Armature_sling02/Root/Target
+        weight: 1
+      - path: Armature_sling02/Root/Target/IK Left
+        weight: 1
+      - path: Armature_sling02/Root/Target/IK Right
+        weight: 1
+      - path: Armature_sling02/wpn_ranged_sling02
+        weight: 1
+      - path: Rubber.001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Meshes/Ranged Weapons/wpn_ranged_sling02.fbx
+  uploadId: 475763

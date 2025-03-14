@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: f00b49784ee6d2f42836a257ff130c95
+labels:
+- Club
+- Improvised
+- Melee
+- Post-apocaly
+- Scrap
+- Surviva
+- Survival
+- Weapon
+timeCreated: 1548944162
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Melee Weapons/wpn_club02.prefab
+  uploadId: 475763

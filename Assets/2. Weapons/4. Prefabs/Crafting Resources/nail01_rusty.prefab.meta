@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 95fadc7c762a15d4e8ea2631bd264518
+labels:
+- Ingridient
+- Junk
+- Nail
+- Resource
+- Scrap
+timeCreated: 1548338810
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Crafting Resources/nail01_rusty.prefab
+  uploadId: 475763

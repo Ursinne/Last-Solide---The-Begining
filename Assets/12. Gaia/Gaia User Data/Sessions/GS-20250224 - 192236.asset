@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e251860fcd970734c9f14ebd98a146c3, type: 3}
+  m_Name: GS-20250224 - 192236
+  m_EditorClassIdentifier: 
+  m_name: Session 20250224-192236
+  m_description: 'Rocking out at Creativity Central!
+
+
+    If you like Gaia please
+    consider rating it :)'
+  m_previewImage: {fileID: 0}
+  m_dateCreated: 2025-02-24 19:22:36
+  m_terrainWidth: 512
+  m_terrainDepth: 512
+  m_terrainHeight: 512
+  m_seaLevel: 5
+  m_spawnDensity: 0.8
+  m_isLocked: 0
+  m_previewImageBytes: 
+  m_previewImageWidth: 0
+  m_previewImageHeight: 0
+  m_operations:
+  - m_description: Clear World
+    m_operationType: 10
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 2025-02-24 19:34:26
+    scriptableObjectAssetGUID: 
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 512'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193427
+    m_operationDateTime: 2025-02-24 19:34:27
+    scriptableObjectAssetGUID: 6a4dd62f568e4c746a05de0035fb1ae4
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clear World
+    m_operationType: 10
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 2025-02-24 19:36:10
+    scriptableObjectAssetGUID: 
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 512'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:36:10
+    scriptableObjectAssetGUID: 70c8058bc8ecf8341922afae97b5131b
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Spawning - '
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:37:02
+    scriptableObjectAssetGUID: b5f95da0734727149b2e9d6f62db874c
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Gaia Pro Sample-Tree(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:37:24
+    scriptableObjectAssetGUID: e3d5f3d6e3b726d4d9a9ed9b232705c9
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Gaia Pro Sample-Tree(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:37:28
+    scriptableObjectAssetGUID: c955492cdf7cc524cad45df2a712dce4
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Gaia Pro Sample-Tree(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:37:31
+    scriptableObjectAssetGUID: 570de12fe4d70394280e4c0b1e211c65
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Gaia Pro Sample-Grass(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:37:39
+    scriptableObjectAssetGUID: 0c1e0e1c23ad5f241a2ffec75b8f0358
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Gaia Pro Sample-Rock(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:37:47
+    scriptableObjectAssetGUID: b4369c5b73b617a45a5127c2c8f830d7
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Gaia Pro Sample-Small Farms(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20250224 - 193610
+    m_operationDateTime: 2025-02-24 19:37:54
+    scriptableObjectAssetGUID: 9996e00a1be4d274f8643e389fcd3cbf
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  m_terrainMinMaxCache:
+  - guid: c04b620b78b8e2044a7b1efd87f7ee29
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 29.375448
+  - guid: 6e687eafa419f174b99010db3b889509
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 66.67289
+  - guid: bf571fbf1fbbbd14faacd30c91c2ed4b
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 71.95422
+  - guid: 78d61e0bf175b0349924bd96d9fbd257
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 29.375448
+  - guid: 4e9627e2607619842910086f0d6317e9
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 34.563026
+  - guid: b478b98064f42794aa695c0c4fee162a
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 37.516197
+  - guid: Worldmap
+    isWorldmap: 1
+    recalculate: 0
+    min: 0
+    max: 0
+  m_bakedMaskCacheEntries:
+  - fileName: Terrain_0_0-20250224 - 193610_LayerGameObject_3584_12
+    assetPath: Assets/Procedural Worlds/Packages - Install/Gaia/TerrainCollisionData/Terrain_0_0-20250224
+      - 193610/Terrain_0_0-20250224 - 193610_LayerGameObject_3584_12
+    fullPath: C:/Users/berea/Desktop/Last-Solider---Eat-or-Die/Assets/Procedural
+      Worlds/Packages - Install/Gaia/TerrainCollisionData/Terrain_0_0-20250224 -
+      193610/Terrain_0_0-20250224 - 193610_LayerGameObject_3584_12
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20250224 - 193610_LayerTree_3584_5
+    assetPath: Assets/Procedural Worlds/Packages - Install/Gaia/TerrainCollisionData/Terrain_0_0-20250224
+      - 193610/Terrain_0_0-20250224 - 193610_LayerTree_3584_5
+    fullPath: C:/Users/berea/Desktop/Last-Solider---Eat-or-Die/Assets/Procedural
+      Worlds/Packages - Install/Gaia/TerrainCollisionData/Terrain_0_0-20250224 -
+      193610/Terrain_0_0-20250224 - 193610_LayerTree_3584_5
+    texture: {fileID: 0}
+  m_worldBiomeMaskSettings: {fileID: 0}

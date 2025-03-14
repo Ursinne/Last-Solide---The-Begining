@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: e7272dc7ea4d441498c1132e3070509f
+labels:
+- Improvised
+- Post-apocaly
+- Ranged
+- Scrap
+- Sling
+- Survival
+- Weapon
+timeCreated: 1549037196
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Ranged weapons/wpn_ranged_sling02.prefab
+  uploadId: 475763

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 47861a8acd7bad642b218eac2446bb4b
+labels:
+- Hide
+- Ingridient
+- Junk
+- Resource
+- Scrap
+timeCreated: 1549275773
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Crafting Resources/props_nat_rawhide.prefab
+  uploadId: 475763

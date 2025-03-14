@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d4e7d543ab4449a4d8182e22cc034a56
+timeCreated: 1548338530
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Materials/MetalScraps.mat
+  uploadId: 475763

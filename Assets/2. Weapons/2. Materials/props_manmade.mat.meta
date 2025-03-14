@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d6633a285823419469ae8377f647be7e
+timeCreated: 1548411137
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Materials/props_manmade.mat
+  uploadId: 475763

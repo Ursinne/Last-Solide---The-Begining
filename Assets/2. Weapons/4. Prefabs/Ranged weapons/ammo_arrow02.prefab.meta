@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 3fe8374866d6ebb41abfd4d65ac187fc
+labels:
+- Ammunition
+- Ammution
+- Arrow
+- Bolt
+- Improvised
+- Post-apocaly
+- Ranged
+- Scrap
+- Survival
+- Weapon
+timeCreated: 1549037426
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Ranged weapons/ammo_arrow02.prefab
+  uploadId: 475763

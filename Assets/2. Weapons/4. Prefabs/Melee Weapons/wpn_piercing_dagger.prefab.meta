@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 5c5a572ccb1d7b648bdb6d79749bb1ca
+labels:
+- Dagger
+- Improvised
+- Knife
+- Melee
+- Post-apocaly
+- Scrap
+- Shiv
+- Surviva
+- Survival
+- Weapon
+timeCreated: 1549037176
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Melee Weapons/wpn_piercing_dagger.prefab
+  uploadId: 475763

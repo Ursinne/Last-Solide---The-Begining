@@ -1,0 +1,131 @@
+fileFormatVersion: 2
+guid: ff560322ffe09284d9077f220cc7421a
+timeCreated: 1549275604
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: props_nat_fiber
+    100002: props_nat_leather
+    100004: props_nat_rawhide
+    100006: props_nat_rock01
+    100008: props_nat_rock02
+    100010: props_nat_rock03
+    100012: props_nat_wood01
+    100014: props_nat_wood02
+    100016: props_nat_wood03
+    100018: //RootNode
+    400000: props_nat_fiber
+    400002: props_nat_leather
+    400004: props_nat_rawhide
+    400006: props_nat_rock01
+    400008: props_nat_rock02
+    400010: props_nat_rock03
+    400012: props_nat_wood01
+    400014: props_nat_wood02
+    400016: props_nat_wood03
+    400018: //RootNode
+    2300000: props_nat_fiber
+    2300002: props_nat_leather
+    2300004: props_nat_rawhide
+    2300006: props_nat_rock01
+    2300008: props_nat_rock02
+    2300010: props_nat_rock03
+    2300012: props_nat_wood01
+    2300014: props_nat_wood02
+    2300016: props_nat_wood03
+    3300000: props_nat_fiber
+    3300002: props_nat_leather
+    3300004: props_nat_rawhide
+    3300006: props_nat_rock01
+    3300008: props_nat_rock02
+    3300010: props_nat_rock03
+    3300012: props_nat_wood01
+    3300014: props_nat_wood02
+    3300016: props_nat_wood03
+    4300000: props_nat_wood02
+    4300002: props_nat_wood01
+    4300004: props_nat_rock03
+    4300006: props_nat_rock02
+    4300008: props_nat_rock01
+    4300010: props_nat_rawhide
+    4300012: props_nat_leather
+    4300014: props_nat_fiber
+    4300016: props_nat_wood03
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.5
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Meshes/Crafting Resources/props_natural.fbx
+  uploadId: 475763

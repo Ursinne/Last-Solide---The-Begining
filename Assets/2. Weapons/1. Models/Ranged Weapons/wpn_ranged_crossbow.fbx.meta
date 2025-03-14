@@ -1,0 +1,393 @@
+fileFormatVersion: 2
+guid: b201dbafc9cf19946bd7bc501bb3d41d
+timeCreated: 1549269136
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Arm.Left
+    100002: Arm.Right
+    100004: arm1
+    100006: arm1.001
+    100008: arm2
+    100010: arm2.001
+    100012: arm3
+    100014: arm3.001
+    100016: arm4
+    100018: arm4.001
+    100020: arm4.001_end
+    100022: arm4_end
+    100024: crossbow
+    100026: Crossbow_armature
+    100028: //RootNode
+    100030: duct tape
+    100032: IK_left
+    100034: IK_left_end
+    100036: IK_right
+    100038: IK_right_end
+    100040: RootBone
+    100042: String
+    100044: String_end
+    100046: Target.Left
+    100048: Target.Left_end
+    100050: target.Right
+    100052: target.Right_end
+    400000: Arm.Left
+    400002: Arm.Right
+    400004: arm1
+    400006: arm1.001
+    400008: arm2
+    400010: arm2.001
+    400012: arm3
+    400014: arm3.001
+    400016: arm4
+    400018: arm4.001
+    400020: arm4.001_end
+    400022: arm4_end
+    400024: crossbow
+    400026: Crossbow_armature
+    400028: //RootNode
+    400030: duct tape
+    400032: IK_left
+    400034: IK_left_end
+    400036: IK_right
+    400038: IK_right_end
+    400040: RootBone
+    400042: String
+    400044: String_end
+    400046: Target.Left
+    400048: Target.Left_end
+    400050: target.Right
+    400052: target.Right_end
+    4300000: duct tape
+    4300002: crossbow
+    7400000: crossbow_draw
+    7400002: Crossbow_armature|PoseLib
+    7400004: crossbow_ready
+    7400006: crossbow_released
+    9500000: //RootNode
+    13700000: crossbow
+    13700002: duct tape
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: crossbow_draw
+      takeName: Crossbow_armature|Draw
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: crossbow
+        weight: 1
+      - path: Crossbow_armature
+        weight: 1
+      - path: Crossbow_armature/Arm.Left
+        weight: 1
+      - path: Crossbow_armature/Arm.Left/IK_left
+        weight: 1
+      - path: Crossbow_armature/Arm.Left/IK_left/IK_left_end
+        weight: 1
+      - path: Crossbow_armature/Arm.Right
+        weight: 1
+      - path: Crossbow_armature/Arm.Right/IK_right
+        weight: 1
+      - path: Crossbow_armature/Arm.Right/IK_right/IK_right_end
+        weight: 1
+      - path: Crossbow_armature/RootBone
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3/arm4
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3/arm4/arm4_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001/arm4.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001/arm4.001/arm4.001_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/String
+        weight: 1
+      - path: Crossbow_armature/RootBone/String/String_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/Target.Left
+        weight: 1
+      - path: Crossbow_armature/RootBone/Target.Left/Target.Left_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/target.Right
+        weight: 1
+      - path: Crossbow_armature/RootBone/target.Right/target.Right_end
+        weight: 1
+      - path: duct tape
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: crossbow_ready
+      takeName: Crossbow_armature|Draw
+      firstFrame: 18.9
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: crossbow
+        weight: 1
+      - path: Crossbow_armature
+        weight: 1
+      - path: Crossbow_armature/Arm.Left
+        weight: 1
+      - path: Crossbow_armature/Arm.Left/IK_left
+        weight: 1
+      - path: Crossbow_armature/Arm.Left/IK_left/IK_left_end
+        weight: 1
+      - path: Crossbow_armature/Arm.Right
+        weight: 1
+      - path: Crossbow_armature/Arm.Right/IK_right
+        weight: 1
+      - path: Crossbow_armature/Arm.Right/IK_right/IK_right_end
+        weight: 1
+      - path: Crossbow_armature/RootBone
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3/arm4
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3/arm4/arm4_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001/arm4.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001/arm4.001/arm4.001_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/String
+        weight: 1
+      - path: Crossbow_armature/RootBone/String/String_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/Target.Left
+        weight: 1
+      - path: Crossbow_armature/RootBone/Target.Left/Target.Left_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/target.Right
+        weight: 1
+      - path: Crossbow_armature/RootBone/target.Right/target.Right_end
+        weight: 1
+      - path: duct tape
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: crossbow_released
+      takeName: Crossbow_armature|Draw
+      firstFrame: 0
+      lastFrame: 0.10000001
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: crossbow
+        weight: 1
+      - path: Crossbow_armature
+        weight: 1
+      - path: Crossbow_armature/Arm.Left
+        weight: 1
+      - path: Crossbow_armature/Arm.Left/IK_left
+        weight: 1
+      - path: Crossbow_armature/Arm.Left/IK_left/IK_left_end
+        weight: 1
+      - path: Crossbow_armature/Arm.Right
+        weight: 1
+      - path: Crossbow_armature/Arm.Right/IK_right
+        weight: 1
+      - path: Crossbow_armature/Arm.Right/IK_right/IK_right_end
+        weight: 1
+      - path: Crossbow_armature/RootBone
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3/arm4
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1/arm2/arm3/arm4/arm4_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001/arm4.001
+        weight: 1
+      - path: Crossbow_armature/RootBone/arm1.001/arm2.001/arm3.001/arm4.001/arm4.001_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/String
+        weight: 1
+      - path: Crossbow_armature/RootBone/String/String_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/Target.Left
+        weight: 1
+      - path: Crossbow_armature/RootBone/Target.Left/Target.Left_end
+        weight: 1
+      - path: Crossbow_armature/RootBone/target.Right
+        weight: 1
+      - path: Crossbow_armature/RootBone/target.Right/target.Right_end
+        weight: 1
+      - path: duct tape
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Meshes/Ranged Weapons/wpn_ranged_crossbow.fbx
+  uploadId: 475763

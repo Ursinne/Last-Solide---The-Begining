@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 94ddd53e2604a3645954abda96e92a7d
+labels:
+- Improvised
+- Machete
+- Melee
+- Post-apocaly
+- Scrap
+- Surviva
+- Survival
+- Weapon
+timeCreated: 1549037181
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Melee Weapons/wpn_piercing_machete.prefab
+  uploadId: 475763

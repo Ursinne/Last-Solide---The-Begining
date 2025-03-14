@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: e9b770ca675c7dd478d2e4862ce69323
+labels:
+- Cloth
+- Ingridient
+- Junk
+- Resource
+- Scrap
+timeCreated: 1548843530
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Crafting Resources/props_cloth_02.prefab
+  uploadId: 475763

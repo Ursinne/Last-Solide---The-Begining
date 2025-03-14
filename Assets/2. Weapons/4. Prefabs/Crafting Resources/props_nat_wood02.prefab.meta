@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0baf123b6f0b0ee4bb039692c88dd54e
+labels:
+- Ingridient
+- Junk
+- Resource
+- Scrap
+- Wood
+timeCreated: 1549275779
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211435
+  packageName: Survival Weapons with Crafting Materials
+  packageVersion: 1.1
+  assetPath: Assets/Survival Weapons with Crafting Materials/Prefabs/Crafting Resources/props_nat_wood02.prefab
+  uploadId: 475763
