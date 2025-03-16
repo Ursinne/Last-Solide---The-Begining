@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d2f6ad78dc34f409015301c1c0f84b, type: 3}
-  m_Name: Meed
+  m_Name: New Item 2
   m_EditorClassIdentifier: 
-  itemName: Meed
-  itemIcon: {fileID: 21300000, guid: 7fb82aeac8876524e880af5076600ae7, type: 3}
-  description: Drink from Vahalla
+  itemName: 
+  itemIcon: {fileID: 0}
+  description: 
   tooltipText: 
-  itemType: 1
-  rarity: 3
+  itemType: 0
+  rarity: 0
   itemPrefab: {fileID: 0}
   isStackable: 1
   useCustomStackSize: 0
@@ -40,15 +40,15 @@ MonoBehaviour:
   criticalMultiplier: 1.5
   defense: 0
   weight: 0
-  healthRestore: 50
-  thirstRestore: 50
+  healthRestore: 0
+  thirstRestore: 0
   hungerRestore: 0
-  SicknessRestore: 50
+  SicknessRestore: 0
   sexRestore: 0
-  manaRestore: 50
-  staminaRestore: 50
+  manaRestore: 0
+  staminaRestore: 0
   duration: 0
-  hasTemporaryEffect: 1
+  hasTemporaryEffect: 0
   appliesBuffs: 0
   strengthBuff: 0
   agilityBuff: 0

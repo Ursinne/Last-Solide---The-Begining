@@ -5,20 +5,24 @@ using System.Collections;
 public class NPCShirtlessZombie : MonoBehaviour
 {
     [Header("Zombie Settings")]
-    public float detectionRange = 10f;      // R‰ckvidd d‰r zombien uppt‰cker spelaren
-    public float attackRange = 1.5f;        // R‰ckvidd d‰r zombien kan attackera spelaren
-    public float zombieSpeed = 2f;          // Zombiens rˆrelsehastighet
+    public float detectionRange = 10f;      // R√§ckvidd d√§r zombien uppt√§cker spelaren
+    public float attackRange = 1.5f;        // R√§ckvidd d√§r zombien kan attackera spelaren
+    public float zombieSpeed = 2f;          // Zombiens r√∂relsehastighet
+    public float wanderSpeed = 1f;          // Hastighet n√§r zombien vandrar
     public float attackCooldown = 2f;       // Tid mellan attacker
+    public float wanderRadius = 10f;        // Hur l√•ngt zombien vandrar fr√•n sin startposition
+    public float minWanderWaitTime = 3f;    // Minsta tid zombien v√§ntar mellan vandringar
+    public float maxWanderWaitTime = 8f;    // L√§ngsta tid zombien v√§ntar mellan vandringar
 
     [Header("Health Settings")]
-    public float maxHealth = 100f;          // Zombiens maximala h‰lsa
-    public float currentHealth;             // Zombiens nuvarande h‰lsa
-    public float attackDamage = 10f;        // Skada som zombien gˆr vid attack
+    public float maxHealth = 100f;          // Zombiens maximala h√§lsa
+    public float currentHealth;             // Zombiens nuvarande h√§lsa
+    public float attackDamage = 10f;        // Skada som zombien g√∂r vid attack
 
     [Header("Death Settings")]
-    public float deathAnimationTime = 3f;   // Hur lÂng tid dˆdsanimationen spelas innan objekt fˆrstˆrs
-    public GameObject[] dropItems;           // Mˆjliga items som zombien kan sl‰ppa n‰r den dˆr
-    [Range(0, 1)] public float dropChance = 0.3f; // Chans att zombien sl‰pper nÂgot item
+    public float deathAnimationTime = 3f;   // Hur l√•ng tid d√∂dsanimationen spelas innan objekt f√∂rst√∂rs
+    public GameObject[] dropItems;           // M√∂jliga items som zombien kan sl√§ppa n√§r den d√∂r
+    [Range(0, 1)] public float dropChance = 0.3f; // Chans att zombien sl√§pper n√•got item
 
     [Header("References")]
     private CharacterController controller;  // Referens till CharacterController-komponenten
@@ -28,19 +32,28 @@ public class NPCShirtlessZombie : MonoBehaviour
     // Status-variabler
     private bool playerDetected = false;
     private float lastAttackTime;
-    private Vector3 targetPosition;
+    private Vector3 startPosition;          // Zombiens startposition
+    private Vector3 targetPosition;         // Destination f√∂r zombiens vandring
+    private float wanderTimer;              // Timer f√∂r vandringsintervall
+    private bool isWandering = false;       // Om zombien f√∂r n√§rvarande vandrar
     private bool isDead = false;
+    private bool canAttack = true;          // Om zombien kan attackera (f√∂r att f√∂rhindra attackspam)
 
+    // Variabler f√∂r d√∂dsspelarbeteende
     public bool isPlayerDead = false;
     public float bitingDistance = 1.0f;
     private Vector3 deadPlayerPosition;
+    private bool isEating = false;          // Om zombien √§ter p√• en d√∂d spelare
 
     void Start()
     {
-        // Initialisera h‰lsa
+        // Spara startposition
+        startPosition = transform.position;
+        
+        // Initialisera h√§lsa
         currentHealth = maxHealth;
 
-        // Hitta nˆdv‰ndiga komponenter
+        // Hitta n√∂dv√§ndiga komponenter
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
@@ -54,39 +67,60 @@ public class NPCShirtlessZombie : MonoBehaviour
         {
             Debug.LogWarning("Ingen spelare med taggen 'Player' hittades!");
         }
+
+        // Starta zombien med ett idle-l√§ge
+        wanderTimer = Random.Range(minWanderWaitTime, maxWanderWaitTime);
     }
 
     void Update()
     {
-        // Om zombien ‰r dˆd, avbryt uppdateringen
-        if (isDead || player == null) return;
+        // Om zombien √§r d√∂d, avbryt uppdateringen
+        if (isDead || controller == null) return;
 
+        // Om spelaren √§r d√∂d och zombien vet om det
         if (isPlayerDead)
         {
             GoToDeadPlayer();
             return;
         }
 
-        // Ber‰kna avstÂnd till spelaren
+        // Om spelaren inte hittats, f√∂rs√∂k igen (f√∂r fall d√§r spelaren spawnas efter zombien)
+        if (player == null)
+        {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
+            else
+            {
+                // Om ingen spelare finns, bara vandra runt
+                IdleOrWander();
+                UpdateAnimations();
+                return;
+            }
+        }
+
+        // Ber√§kna avst√•nd till spelaren
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // Kontrollera om spelaren ‰r inom detektionsr‰ckvidden
+        // Kontrollera om spelaren √§r inom detektionsr√§ckvidden
         playerDetected = distanceToPlayer <= detectionRange;
 
         if (playerDetected)
         {
-            // Jaga spelaren
+            // Jaga alltid spelaren om den √§r uppt√§ckt, oavsett avst√•nd
             ChasePlayer();
 
-            // Kontrollera om zombien ‰r tillr‰ckligt n‰ra fˆr att attackera
-            if (distanceToPlayer <= attackRange && Time.time > lastAttackTime + attackCooldown)
+            // Attackera bara om inom r√§ckh√•ll
+            if (distanceToPlayer <= attackRange && canAttack && Time.time > lastAttackTime + attackCooldown)
             {
                 AttackPlayer();
             }
         }
         else
         {
-            // Zombien ser inte spelaren, stÂ stilla eller vandra slumpm‰ssigt
+            // Zombien ser inte spelaren, st√• stilla eller vandra slumpm√§ssigt
             IdleOrWander();
         }
 
@@ -98,19 +132,31 @@ public class NPCShirtlessZombie : MonoBehaviour
     {
         if (isDead) return;
 
-        // Ber‰kna avstÂnd till den dˆda spelaren
+        // Om vi redan √§ter, forts√§tt med det
+        if (isEating)
+        {
+            if (animator != null)
+            {
+                animator.SetFloat("VelocityY", 0);
+                animator.SetFloat("VelocityX", 0);
+                animator.SetBool("IsBiting", true);
+            }
+            return;
+        }
+
+        // Ber√§kna avst√•nd till den d√∂da spelaren
         float distanceToBody = Vector3.Distance(transform.position, deadPlayerPosition);
 
         if (distanceToBody > bitingDistance)
         {
-            // GÂ mot kroppen
+            // G√• mot kroppen
             Vector3 direction = (deadPlayerPosition - transform.position).normalized;
             direction.y = 0;
 
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5f * Time.deltaTime);
 
-            if (controller != null)
+            if (controller != null && controller.enabled)
             {
                 Vector3 movement = direction * zombieSpeed * Time.deltaTime;
                 if (!controller.isGrounded)
@@ -120,7 +166,7 @@ public class NPCShirtlessZombie : MonoBehaviour
                 controller.Move(movement);
             }
 
-            // Uppdatera animationer fˆr att visa att zombien gÂr
+            // Uppdatera animationer f√∂r att visa att zombien g√•r
             if (animator != null)
             {
                 animator.SetFloat("VelocityY", 1);
@@ -129,7 +175,8 @@ public class NPCShirtlessZombie : MonoBehaviour
         }
         else
         {
-            // Bitanimation n‰r zombien nÂr kroppen
+            // Bitanimation n√§r zombien n√•r kroppen
+            isEating = true;
             if (animator != null)
             {
                 animator.SetFloat("VelocityY", 0);
@@ -141,19 +188,28 @@ public class NPCShirtlessZombie : MonoBehaviour
 
     private void ChasePlayer()
     {
-        // V‰nd zombien mot spelaren
+        if (player == null) return;
+
+        // Avbryt vandring n√§r vi jagar
+        isWandering = false;
+
+        // Ber√§kna avst√•nd till spelaren
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        // V√§nd zombien mot spelaren - alltid!
         Vector3 direction = (player.position - transform.position).normalized;
-        direction.y = 0; // Ignorera hˆjdskillnad fˆr rotation
+        direction.y = 0; // Ignorera h√∂jdskillnad f√∂r rotation
 
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5f * Time.deltaTime);
 
-        // Flytta zombien mot spelaren
-        if (controller != null)
+        // Flytta zombien mot spelaren om spelaren inte √§r inom attackavst√•nd
+        // eller om vi beh√∂ver justera positionen
+        if (distanceToPlayer > attackRange * 0.8f && controller != null && controller.enabled)
         {
             Vector3 movement = direction * zombieSpeed * Time.deltaTime;
 
-            // L‰gg till gravitation om det behˆvs
+            // L√§gg till gravitation om det beh√∂vs
             if (!controller.isGrounded)
             {
                 movement.y = Physics.gravity.y * Time.deltaTime;
@@ -165,8 +221,11 @@ public class NPCShirtlessZombie : MonoBehaviour
 
     private void AttackPlayer()
     {
-        // Registrera tid fˆr attacken
+        if (player == null) return;
+
+        // Registrera tid f√∂r attacken
         lastAttackTime = Time.time;
+        canAttack = false;
 
         // Spela attackanimation
         if (animator != null)
@@ -174,69 +233,178 @@ public class NPCShirtlessZombie : MonoBehaviour
             animator.SetTrigger("Attack");
         }
 
-        // Fˆrsˆk skada spelaren
+        // G√∂r skadekontroll f√∂rst efter en kort f√∂rdr√∂jning s√• att det matchar animationen
+        StartCoroutine(DealDamageAfterDelay(0.5f));
+        
+        // √Öterst√§ll attack-flaggan efter cooldown
+        StartCoroutine(ResetAttackFlag());
+        
+        // VIKTIGT: Vi blockerar INTE f√∂rflyttning h√§r, s√• zombien kan forts√§tta f√∂lja spelaren
+        // √§ven om den attackerar
+    }
+
+    private IEnumerator DealDamageAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // Kontrollera igen att spelaren finns och √§r inom r√§ckh√•ll
         if (player != null)
         {
-            // Kontrollera om spelaren har ett h‰lsosystem och orsaka skada
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            if (distanceToPlayer <= attackRange * 1.5f) // Lite st√∂rre marginal f√∂r attacken
             {
-                playerHealth.TakeDamage(attackDamage);
-                Debug.Log($"Zombie orsakade {attackDamage} skada pÂ spelaren.");
-            }
-            else
-            {
-                // Fallback om inget PlayerHealth-skript finns
-                Debug.LogWarning("Spelaren har inget PlayerHealth-skript!");
+                // Kontrollera om spelaren har ett h√§lsosystem och orsaka skada
+                PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(attackDamage);
+                    Debug.Log($"Zombie orsakade {attackDamage} skada p√• spelaren.");
+                }
             }
         }
+    }
+
+    private IEnumerator ResetAttackFlag()
+    {
+        yield return new WaitForSeconds(attackCooldown * 0.8f);
+        canAttack = true;
     }
 
     public void PlayerDied(Vector3 playerPos)
     {
         isPlayerDead = true;
         deadPlayerPosition = playerPos;
+        isEating = false;
 
-        // Zombien springer mot den dˆda spelaren
-        zombieSpeed *= 1.5f; // Snabbare fˆr att nÂ kroppen
+        // Zombien springer mot den d√∂da spelaren
+        zombieSpeed *= 1.2f; // Snabbare f√∂r att n√• kroppen
     }
 
     private void IdleOrWander()
     {
-        // Zombien stÂr stilla eller utfˆr enkel vandringsbeteende
-        // H‰r kan du implementera slumpm‰ssig rˆrelse om du vill
-        if (animator != null)
+        // Om zombien redan vandrar, forts√§tt tills den n√•r m√•let
+        if (isWandering)
         {
-            animator.SetFloat("VelocityY", 0);
+            if (controller != null && controller.enabled)
+            {
+                // Ber√§kna avst√•nd till m√•lpunkten
+                float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+                
+                // Om zombien har n√•tt sin destination eller √§r n√§ra nog
+                if (distanceToTarget < 1.0f)
+                {
+                    isWandering = false;
+                    wanderTimer = Random.Range(minWanderWaitTime, maxWanderWaitTime);
+                    
+                    // Zombien st√•r stilla
+                    if (animator != null)
+                    {
+                        animator.SetFloat("VelocityY", 0);
+                    }
+                }
+                else
+                {
+                    // Forts√§tt f√∂rflytta zombien mot m√•let
+                    Vector3 direction = (targetPosition - transform.position).normalized;
+                    direction.y = 0;
+                    
+                    // Rotera mot m√•let
+                    transform.rotation = Quaternion.Slerp(transform.rotation, 
+                                                         Quaternion.LookRotation(direction), 
+                                                         2f * Time.deltaTime);
+                    
+                    // Flytta mot m√•let
+                    Vector3 movement = direction * wanderSpeed * Time.deltaTime;
+                    
+                    // L√§gg till gravitation
+                    if (!controller.isGrounded)
+                    {
+                        movement.y = Physics.gravity.y * Time.deltaTime;
+                    }
+                    
+                    controller.Move(movement);
+                    
+                    // Animera vandring
+                    if (animator != null)
+                    {
+                        animator.SetFloat("VelocityY", 0.5f); // L√•ngsammare g√•nghastighet
+                    }
+                }
+            }
         }
+        else
+        {
+            // Minska v√§ntetimern
+            wanderTimer -= Time.deltaTime;
+            
+            // N√§r timern n√•r noll, v√§lj en ny plats att vandra till
+            if (wanderTimer <= 0)
+            {
+                // 70% chans att vandra, 30% chans att bara st√• stilla
+                if (Random.value < 0.7f)
+                {
+                    targetPosition = GetRandomWanderPoint();
+                    isWandering = true;
+                }
+                else
+                {
+                    // Bara st√• stilla ett tag till
+                    wanderTimer = Random.Range(minWanderWaitTime, maxWanderWaitTime);
+                }
+            }
+        }
+    }
+
+    private Vector3 GetRandomWanderPoint()
+    {
+        // Ber√§kna en slumpm√§ssig destination inom vandringsradien fr√•n startpunkten
+        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
+        randomDirection.y = 0;
+        Vector3 randomPosition = startPosition + randomDirection;
+        
+        // F√∂rs√§kra att destinationen √§r p√• NavMesh (om NavMesh anv√§nds)
+        NavMeshHit navHit;
+        if (NavMesh.SamplePosition(randomPosition, out navHit, wanderRadius, NavMesh.AllAreas))
+        {
+            return navHit.position;
+        }
+        
+        // Om ingen NavMesh-position hittades, anv√§nd bara den slumpm√§ssiga positionen
+        return randomPosition;
     }
 
     private void UpdateAnimations()
     {
         if (animator == null) return;
 
-        // Uppdatera animationsparametrar baserat pÂ tillstÂnd
+        // Uppdatera animationsparametrar baserat p√• tillst√•nd
         if (playerDetected && !isDead)
         {
-            // Zombien rˆr sig mot spelaren
-            animator.SetFloat("VelocityY", 1); // FramÂt rˆrelse
-            animator.SetFloat("VelocityX", 0); // Ingen sidrˆrelser
+            // Zombien r√∂r sig mot spelaren
+            animator.SetFloat("VelocityY", 1); // Fram√•t r√∂relse
+            animator.SetFloat("VelocityX", 0); // Ingen sidr√∂relser
+        }
+        else if (isWandering && !isDead)
+        {
+            // Zombien vandrar runt
+            animator.SetFloat("VelocityY", 0.5f); // L√•ngsammare g√•ng
+            animator.SetFloat("VelocityX", 0);
         }
         else
         {
-            // Zombien ‰r i idle-l‰ge
+            // Zombien √§r i idle-l√§ge
             animator.SetFloat("VelocityY", 0);
             animator.SetFloat("VelocityX", 0);
         }
     }
 
-    // Metod fˆr att hantera n‰r zombien tar skada
+    // Metod f√∂r att hantera n√§r zombien tar skada
     public void TakeDamage(float damageAmount)
     {
         if (isDead) return;
 
         currentHealth -= damageAmount;
-        Debug.Log($"Zombie tog {damageAmount} skada. ≈terstÂende h‰lsa: {currentHealth}");
+        Debug.Log($"Zombie tog {damageAmount} skada. √Öterst√•ende h√§lsa: {currentHealth}");
 
         // Aktivera en skadad-animation om det finns
         if (animator != null)
@@ -244,7 +412,7 @@ public class NPCShirtlessZombie : MonoBehaviour
             animator.SetTrigger("TakeDamage");
         }
 
-        // Kontrollera om zombien har dˆtt
+        // Kontrollera om zombien har d√∂tt
         if (currentHealth <= 0)
         {
             Die();
@@ -255,20 +423,25 @@ public class NPCShirtlessZombie : MonoBehaviour
     {
         isDead = true;
 
-        // Inaktivera CharacterController fˆr att stoppa rˆrelse
+        // Inaktivera CharacterController f√∂r att stoppa r√∂relse
         if (controller != null)
         {
             controller.enabled = false;
         }
 
-        // Aktivera dˆdsanimation
+        // Aktivera d√∂dsanimation
         if (animator != null)
         {
             animator.SetTrigger("Die");
             animator.SetBool("IsDead", true);
+            
+            // √Öterst√§ll eventuella p√•g√•ende animationer
+            animator.SetBool("IsBiting", false);
+            animator.SetFloat("VelocityY", 0);
+            animator.SetFloat("VelocityX", 0);
         }
 
-        // Slumpm‰ssigt sl‰pp items vid dˆd
+        // Slumpm√§ssigt sl√§pp items vid d√∂d
         DropItems();
 
         // Ta bort eventuella colliders
@@ -278,7 +451,7 @@ public class NPCShirtlessZombie : MonoBehaviour
             collider.enabled = false;
         }
 
-        // Fˆrstˆr zombie-objektet efter en fˆrdrˆjning
+        // F√∂rst√∂r zombie-objektet efter en f√∂rdr√∂jning
         StartCoroutine(DestroyAfterDelay());
     }
 
@@ -286,41 +459,60 @@ public class NPCShirtlessZombie : MonoBehaviour
     {
         if (dropItems == null || dropItems.Length == 0) return;
 
-        // Slumpa om zombien ska sl‰ppa nÂgot
+        // Slumpa om zombien ska sl√§ppa n√•got
         if (Random.value <= dropChance)
         {
-            // Slumpa vilket item som ska sl‰ppas
+            // Slumpa vilket item som ska sl√§ppas
             int randomIndex = Random.Range(0, dropItems.Length);
             GameObject itemToSpawn = dropItems[randomIndex];
 
             if (itemToSpawn != null)
             {
-                // Skapa item med en liten offset frÂn zombiens position
+                // Skapa item med en liten offset fr√•n zombiens position
                 Vector3 spawnPos = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), 0.1f, Random.Range(-0.5f, 0.5f));
                 Instantiate(itemToSpawn, spawnPos, Quaternion.identity);
-                Debug.Log($"Zombien sl‰ppte: {itemToSpawn.name}");
+                Debug.Log($"Zombien sl√§ppte: {itemToSpawn.name}");
             }
         }
     }
 
     private IEnumerator DestroyAfterDelay()
     {
-        // V‰nta pÂ att dˆdsanimationen ska spelas klart
+        // V√§nta p√• att d√∂dsanimationen ska spelas klart
         yield return new WaitForSeconds(deathAnimationTime);
 
-        // Fˆrstˆr zombie-objektet
+        // F√∂rst√∂r zombie-objektet
         Destroy(gameObject);
     }
 
-    // Visualisera detektions- och attackomrÂdet i Unity-editorn
+    // Visualisera detektions- och attackomr√•det i Unity-editorn
     void OnDrawGizmosSelected()
     {
-        // Rita detektionsomrÂdet
+        // Rita detektionsomr√•det
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        // Rita attackomrÂdet
+        // Rita attackomr√•det
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+        
+        // Rita vandringsradien
+        Gizmos.color = Color.blue;
+        if (Application.isPlaying)
+        {
+            Gizmos.DrawWireSphere(startPosition, wanderRadius);
+        }
+        else
+        {
+            Gizmos.DrawWireSphere(transform.position, wanderRadius);
+        }
+        
+        // Om vi vandrar, visa m√•lpunkten
+        if (Application.isPlaying && isWandering)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(targetPosition, 0.3f);
+            Gizmos.DrawLine(transform.position, targetPosition);
+        }
     }
 }

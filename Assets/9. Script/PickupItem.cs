@@ -21,7 +21,11 @@ public class PickupItem : MonoBehaviour
     public AudioClip pickupSound; // Ljud när man plockar upp
     public GameObject pickupEffectPrefab; // Visuell effekt när man plockar upp
 
+    [Header("Debug Settings")]
+    public bool showDebugInfo = true; // Sätt till false i produktion
+
     private AudioSource audioSource;
+    private Transform playerTransform; // Cachelagrar spelarens transform för bättre prestanda
 
     private void Start()
     {
@@ -35,13 +39,21 @@ public class PickupItem : MonoBehaviour
             audioSource.maxDistance = 10f;
             audioSource.volume = 0.7f;
         }
+        
+        // Försök hitta spelaren vid start och cachelagra referensen
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player is nearby, you can pick up the item.");
+            if (showDebugInfo)
+                Debug.Log($"Spelare inom trigger-räckvidd för {gameObject.name}");
 
             // Visa en tooltip eller interaktionstext om du vill
             // UI_InteractionManager.Instance?.ShowInteractionText($"Press {pickupKey} to pick up {itemData?.itemName}");
@@ -52,6 +64,9 @@ public class PickupItem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (showDebugInfo)
+                Debug.Log($"Spelare lämnade trigger-räckvidd för {gameObject.name}");
+                
             // Dölj interaktionstext när spelaren går bort
             // UI_InteractionManager.Instance?.HideInteractionText();
         }
@@ -59,23 +74,49 @@ public class PickupItem : MonoBehaviour
 
     private void Update()
     {
+        // Kontrollera om spelaren fortfarande finns
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                playerTransform = player.transform;
+            }
+            else
+            {
+                return; // Ingen spelare hittad
+            }
+        }
+
+        // Beräkna och visa avståndet varje frame för debugging
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
+        
+        // Visa alltid avstånd när Shift-tangenten hålls ner (för debugging)
+        if (showDebugInfo && Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log($"Avstånd till {gameObject.name}: {distance:F2} meter, pickupRange: {pickupRange}");
+        }
+
         if (Input.GetKeyDown(pickupKey)) // tangent för att plocka upp
         {
-            // Hitta spelaren
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player == null) return;
-
-            float distance = Vector3.Distance(transform.position, player.transform.position);
+            // Lägg till mer detaljerad loggning för felsökning
+            if (showDebugInfo)
+            {
+                Debug.Log($"Försöker plocka upp {gameObject.name}. Avstånd: {distance:F2}, pickupRange: {pickupRange}, Kan plocka upp: {distance < pickupRange}");
+            }
 
             // Kolla om spelaren är nära nog att plocka upp föremålet
             if (distance < pickupRange)
             {
-                Debug.Log("Player is close enough to pick up the item.");
-                Pickup(player);
+                if (showDebugInfo)
+                    Debug.Log($"Plockar upp {gameObject.name} på avstånd {distance:F2}");
+                
+                Pickup(playerTransform.gameObject);
             }
             else
             {
-                Debug.Log("Player is not close enough to pick up the item.");
+                if (showDebugInfo)
+                    Debug.Log($"För långt borta för att plocka upp {gameObject.name}. Avstånd: {distance:F2}, måste vara mindre än {pickupRange}");
             }
         }
     }
@@ -83,7 +124,8 @@ public class PickupItem : MonoBehaviour
     // Uppdaterade Pickup-metoden som tar emot spelarobjektet
     private void Pickup(GameObject player)
     {
-        Debug.Log($"Plockar upp: {itemData?.itemName}");
+        if (showDebugInfo)
+            Debug.Log($"Plockar upp: {itemData?.itemName}");
 
         // Spela upp animation
         PlayPickupAnimation(player);
@@ -114,7 +156,9 @@ public class PickupItem : MonoBehaviour
                 if (NotificationManager.Instance != null)
                 {
                     NotificationManager.Instance.ShowItemNotification(itemData, amount);
-                    Debug.Log("Notifikation visad via NotificationManager");
+                    
+                    if (showDebugInfo)
+                        Debug.Log("Notifikation visad via NotificationManager");
                 }
                 else
                 {
@@ -140,7 +184,10 @@ public class PickupItem : MonoBehaviour
             if (!string.IsNullOrEmpty(pickupAnimationBool))
             {
                 animController.PlayAnimation(pickupAnimationBool, animationDuration);
-                Debug.Log($"Spelar pickup-animation via PlayerAnimationController: {pickupAnimationBool}");
+                
+                if (showDebugInfo)
+                    Debug.Log($"Spelar pickup-animation via PlayerAnimationController: {pickupAnimationBool}");
+                
                 return;
             }
 
@@ -148,7 +195,9 @@ public class PickupItem : MonoBehaviour
             bool success = animController.TriggerAnimation(pickupAnimationTrigger);
             if (success)
             {
-                Debug.Log($"Spelar pickup-animation via PlayerAnimationController trigger: {pickupAnimationTrigger}");
+                if (showDebugInfo)
+                    Debug.Log($"Spelar pickup-animation via PlayerAnimationController trigger: {pickupAnimationTrigger}");
+                
                 return;
             }
         }
@@ -166,7 +215,10 @@ public class PickupItem : MonoBehaviour
                 if (param.name == pickupAnimationTrigger && param.type == AnimatorControllerParameterType.Trigger)
                 {
                     playerAnimator.SetTrigger(pickupAnimationTrigger);
-                    Debug.Log($"Spelar pickup-animation via Animator trigger: {pickupAnimationTrigger}");
+                    
+                    if (showDebugInfo)
+                        Debug.Log($"Spelar pickup-animation via Animator trigger: {pickupAnimationTrigger}");
+                    
                     return;
                 }
                 else if (param.name == pickupAnimationBool && param.type == AnimatorControllerParameterType.Bool)
@@ -174,7 +226,10 @@ public class PickupItem : MonoBehaviour
                     // Sätt bool, återställ efter en kort stund
                     playerAnimator.SetBool(pickupAnimationBool, true);
                     StartCoroutine(ResetAnimationBool(playerAnimator, pickupAnimationBool, animationDuration));
-                    Debug.Log($"Spelar pickup-animation via Animator bool: {pickupAnimationBool}");
+                    
+                    if (showDebugInfo)
+                        Debug.Log($"Spelar pickup-animation via Animator bool: {pickupAnimationBool}");
+                    
                     return;
                 }
             }
@@ -187,7 +242,10 @@ public class PickupItem : MonoBehaviour
                     if (param.name == genericTrigger && param.type == AnimatorControllerParameterType.Trigger)
                     {
                         playerAnimator.SetTrigger(genericTrigger);
-                        Debug.Log($"Spelar pickup-animation via generisk trigger: {genericTrigger}");
+                        
+                        if (showDebugInfo)
+                            Debug.Log($"Spelar pickup-animation via generisk trigger: {genericTrigger}");
+                        
                         return;
                     }
                 }
@@ -210,93 +268,16 @@ public class PickupItem : MonoBehaviour
             animator.SetBool(paramName, false);
         }
     }
+    
+    // Visualisera pickup-rangen i Unity Editor
+    void OnDrawGizmos()
+    {
+        // Rita en grön sfär som visar pickup-rangen
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, pickupRange);
+        
+        // Rita en liten röd kub i objektets centrum för att visa exakt var avståndet mäts från
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(transform.position, new Vector3(0.1f, 0.1f, 0.1f));
+    }
 }
-
-//using TMPro;
-//using UnityEngine;
-//using UnityEngine.UI;
-//using UnityEngine.EventSystems;
-//using System.Collections.Generic;
-//using InventoryAndCrafting;
-
-//public class PickupItem : MonoBehaviour
-//{
-//    public ItemData itemData; // Teferens till ItemDAta
-//    public int amount = 1;
-//    public float pickupRange = 10; // Öka avståndet för upphämtning för att säkerställa att det räcker
-//    //public InventoryItem item;  // den lag jag till nu tabort och testa
-//    //public Sprite iconIcon;
-
-
-
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        if (other.CompareTag("Player"))
-//        {
-//            Debug.Log("Player is nearby, you can pick up the item.");
-//        }
-//    }
-
-//    private void OnTriggerExit(Collider other)
-//    {
-//        if (other.CompareTag("Player"))
-//        {
-//            //Debug.Log("Player left the area, you can no longer pick up the item.");
-//        }
-//    }
-
-//    private void Update()
-//    {
-//        //Debug.Log("F key pressed.");
-//        if (Input.GetKeyDown(KeyCode.F)) // tangent för att plocka upp
-//        {
-//            Debug.Log($"Distance to player: {pickupRange}");
-//            float distance = Vector3.Distance(transform.position, GameObject.FindWithTag("Player").transform.position);
-
-//            // Kolla om spelaren är nära nog att plocka upp föremålet
-//            if (distance < pickupRange)
-//            {
-//               Debug.Log("Player is close enough to pick up the item.");
-//                Pickup();
-//            }
-//            else
-//            {
-//                Debug.Log("Player is not close enough to pick up the item.");
-//            }
-//        }
-//    }
-
-//    // I PickupItem.cs funktionen Pickup()
-//    private void Pickup()
-//    {
-
-
-//        Debug.Log($"Plockar upp: {itemData?.itemName}");
-
-//        // Använd InventoryManager för att lägga till föremålet
-//        if (itemData != null && InventoryManager.Instance != null)
-//        {
-//            bool added = InventoryManager.Instance.AddItem(itemData, amount);
-//            if (added)
-//            {
-//                QuestManager.Instance?.UpdateQuestProgress("gather", itemData.itemName, amount);
-//                // Visa notifikation via NotificationManager
-//                if (NotificationManager.Instance != null)
-//                {
-//                    NotificationManager.Instance.ShowItemNotification(itemData, amount);
-//                    Debug.Log("Notifikation visad via NotificationManager");
-//                }
-//                else
-//                {
-//                    Debug.LogWarning("NotificationManager.Instance är null!");
-//                }
-
-//                Destroy(gameObject);
-//            }
-//        }
-//        else
-//        {
-//            Debug.LogError("ItemData eller InventoryManager saknas!");
-//        }
-//    }
-//}
