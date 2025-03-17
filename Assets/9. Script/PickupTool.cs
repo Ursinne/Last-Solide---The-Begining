@@ -4,7 +4,7 @@ using InventoryAndCrafting;
 public class PickupTool : MonoBehaviour
 {
     public ItemData itemData; // Referens till ItemData för verktyget
-    public float pickupRange = 3f;
+    public float pickupRange = 5f;
     public KeyCode pickupKey = KeyCode.F;
     
     [Header("Animation Settings")]
@@ -81,15 +81,17 @@ public class PickupTool : MonoBehaviour
             }
             
             float distance = Vector3.Distance(transform.position, player.transform.position);
+            Debug.Log($"Avstånd till {gameObject.name}: {distance:F2} meter, pickupRange: {pickupRange}");
 
             // Kolla om spelaren är tillräckligt nära för att plocka upp verktyget
-            if (distance < pickupRange)
+            // Kolla om spelaren är tillräckligt nära för att plocka upp verktyget
+            if (distance <= pickupRange + 0.1f)  // Lägg till en liten tolerans på 0.1
             {
                 Pickup(player);
             }
             else
             {
-                //Debug.Log("Du är för långt borta för att plocka upp " + (itemData != null ? itemData.itemName : "detta verktyg"));
+                Debug.Log($"För långt borta för att plocka upp {gameObject.name}. Avstånd: {distance:F2}, måste vara mindre än {pickupRange}");
             }
         }
     }

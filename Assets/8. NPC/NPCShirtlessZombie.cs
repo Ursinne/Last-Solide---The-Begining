@@ -6,13 +6,16 @@ public class NPCShirtlessZombie : MonoBehaviour
 {
     [Header("Zombie Settings")]
     public float detectionRange = 10f;      // Räckvidd där zombien upptäcker spelaren
+    public float chaseRange = 20f;          // Utökad räckvidd när zombien redan jagar spelaren
     public float attackRange = 1.5f;        // Räckvidd där zombien kan attackera spelaren
-    public float zombieSpeed = 2f;          // Zombiens rörelsehastighet
+    public float zombieSpeed = 2f;          // Zombiens normala rörelsehastighet
+    public float chaseSpeed = 3.5f;         // Zombiens rörelsehastighet när den jagar
     public float wanderSpeed = 1f;          // Hastighet när zombien vandrar
     public float attackCooldown = 2f;       // Tid mellan attacker
     public float wanderRadius = 10f;        // Hur långt zombien vandrar från sin startposition
     public float minWanderWaitTime = 3f;    // Minsta tid zombien väntar mellan vandringar
     public float maxWanderWaitTime = 8f;    // Längsta tid zombien väntar mellan vandringar
+    public float memoryDuration = 8f;       // Hur länge zombien minns spelaren efter att den försvunnit
 
     [Header("Health Settings")]
     public float maxHealth = 100f;          // Zombiens maximala hälsa
@@ -39,6 +42,13 @@ public class NPCShirtlessZombie : MonoBehaviour
     private bool isDead = false;
     private bool canAttack = true;          // Om zombien kan attackera (för att förhindra attackspam)
 
+    // Nya variabler för förbättrad jaktlogik
+    private bool isChasing = false;         // Om zombien aktivt jagar spelaren
+    private float chaseTimer = 0f;          // Timer för hur länge zombien ska fortsätta jaga efter att spelaren försvunnit
+    private Vector3 lastKnownPlayerPosition; // Senast kända position för spelaren
+    private bool playerInSight = false;     // Om zombien faktiskt kan se spelaren
+    private float playerDistanceLastFrame = float.MaxValue; // För att bestämma om spelaren närmar sig eller flyr
+
     // Variabler för dödsspelarbeteende
     public bool isPlayerDead = false;
     public float bitingDistance = 1.0f;
@@ -49,7 +59,7 @@ public class NPCShirtlessZombie : MonoBehaviour
     {
         // Spara startposition
         startPosition = transform.position;
-        
+
         // Initialisera hälsa
         currentHealth = maxHealth;
 
@@ -104,12 +114,25 @@ public class NPCShirtlessZombie : MonoBehaviour
         // Beräkna avstånd till spelaren
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // Kontrollera om spelaren är inom detektionsräckvidden
-        playerDetected = distanceToPlayer <= detectionRange;
-
-        if (playerDetected)
+        // Uppdatera tidigare-frame data
+        if (playerInSight)
         {
-            // Jaga alltid spelaren om den är upptäckt, oavsett avstånd
+            playerDistanceLastFrame = distanceToPlayer;
+            lastKnownPlayerPosition = player.position;
+        }
+
+        // Kontrollera om spelaren är inom detektionsräckvidden
+        float effectiveRange = isChasing ? chaseRange : detectionRange;
+        playerInSight = distanceToPlayer <= effectiveRange;
+
+        // Logik för att hantera jaktläge
+        if (playerInSight)
+        {
+            playerDetected = true;
+            isChasing = true;
+            chaseTimer = memoryDuration; // Återställ minnestimern
+
+            // Jaga spelaren när den är inom syn
             ChasePlayer();
 
             // Attackera bara om inom räckhåll
@@ -118,14 +141,65 @@ public class NPCShirtlessZombie : MonoBehaviour
                 AttackPlayer();
             }
         }
+        else if (isChasing)
+        {
+            // Spelaren är inte synlig men zombien är fortfarande i jaktläge
+            chaseTimer -= Time.deltaTime;
+            if (chaseTimer > 0)
+            {
+                // Fortsätt jaga spelaren baserat på senast kända position
+                ChaseLastKnownPosition();
+            }
+            else
+            {
+                // Minnet om spelaren har bleknat, återgå till vandringsläge
+                isChasing = false;
+                playerDetected = false;
+                IdleOrWander();
+            }
+        }
         else
         {
-            // Zombien ser inte spelaren, stå stilla eller vandra slumpmässigt
+            // Zombien ser inte spelaren och jagar inte, vandra slumpmässigt
             IdleOrWander();
         }
 
         // Uppdatera animationer
         UpdateAnimations();
+    }
+
+    private void ChaseLastKnownPosition()
+    {
+        if (Vector3.Distance(transform.position, lastKnownPlayerPosition) < 1.5f)
+        {
+            // När zombien når den senast kända positionen men inte hittar spelaren
+            // börja vandra slumpmässigt i området
+            isChasing = false;
+            wanderTimer = 0; // Tvinga omedelbar vandring
+            return;
+        }
+
+        // Rikta mot den senast kända positionen
+        Vector3 direction = (lastKnownPlayerPosition - transform.position).normalized;
+        direction.y = 0;
+
+        // Rotera mot målet
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5f * Time.deltaTime);
+
+        // Flytta mot den senast kända positionen
+        if (controller != null && controller.enabled)
+        {
+            Vector3 movement = direction * zombieSpeed * Time.deltaTime;
+
+            // Lägg till gravitation
+            if (!controller.isGrounded)
+            {
+                movement.y = Physics.gravity.y * Time.deltaTime;
+            }
+
+            controller.Move(movement);
+        }
     }
 
     private void GoToDeadPlayer()
@@ -203,11 +277,18 @@ public class NPCShirtlessZombie : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5f * Time.deltaTime);
 
-        // Flytta zombien mot spelaren om spelaren inte är inom attackavstånd
-        // eller om vi behöver justera positionen
-        if (distanceToPlayer > attackRange * 0.8f && controller != null && controller.enabled)
+        // Öka hastigheten om spelaren flyr
+        float currentSpeed = zombieSpeed;
+        if (distanceToPlayer > playerDistanceLastFrame && distanceToPlayer > attackRange * 1.5f)
         {
-            Vector3 movement = direction * zombieSpeed * Time.deltaTime;
+            // Spelaren flyr - öka hastigheten
+            currentSpeed = chaseSpeed;
+        }
+
+        // Flytta zombien mot spelaren
+        if (controller != null && controller.enabled)
+        {
+            Vector3 movement = direction * currentSpeed * Time.deltaTime;
 
             // Lägg till gravitation om det behövs
             if (!controller.isGrounded)
@@ -235,18 +316,15 @@ public class NPCShirtlessZombie : MonoBehaviour
 
         // Gör skadekontroll först efter en kort fördröjning så att det matchar animationen
         StartCoroutine(DealDamageAfterDelay(0.5f));
-        
+
         // Återställ attack-flaggan efter cooldown
         StartCoroutine(ResetAttackFlag());
-        
-        // VIKTIGT: Vi blockerar INTE förflyttning här, så zombien kan fortsätta följa spelaren
-        // även om den attackerar
     }
 
     private IEnumerator DealDamageAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        
+
         // Kontrollera igen att spelaren finns och är inom räckhåll
         if (player != null)
         {
@@ -289,13 +367,13 @@ public class NPCShirtlessZombie : MonoBehaviour
             {
                 // Beräkna avstånd till målpunkten
                 float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-                
+
                 // Om zombien har nått sin destination eller är nära nog
                 if (distanceToTarget < 1.0f)
                 {
                     isWandering = false;
                     wanderTimer = Random.Range(minWanderWaitTime, maxWanderWaitTime);
-                    
+
                     // Zombien står stilla
                     if (animator != null)
                     {
@@ -307,23 +385,23 @@ public class NPCShirtlessZombie : MonoBehaviour
                     // Fortsätt förflytta zombien mot målet
                     Vector3 direction = (targetPosition - transform.position).normalized;
                     direction.y = 0;
-                    
+
                     // Rotera mot målet
-                    transform.rotation = Quaternion.Slerp(transform.rotation, 
-                                                         Quaternion.LookRotation(direction), 
+                    transform.rotation = Quaternion.Slerp(transform.rotation,
+                                                         Quaternion.LookRotation(direction),
                                                          2f * Time.deltaTime);
-                    
+
                     // Flytta mot målet
                     Vector3 movement = direction * wanderSpeed * Time.deltaTime;
-                    
+
                     // Lägg till gravitation
                     if (!controller.isGrounded)
                     {
                         movement.y = Physics.gravity.y * Time.deltaTime;
                     }
-                    
+
                     controller.Move(movement);
-                    
+
                     // Animera vandring
                     if (animator != null)
                     {
@@ -336,7 +414,7 @@ public class NPCShirtlessZombie : MonoBehaviour
         {
             // Minska väntetimern
             wanderTimer -= Time.deltaTime;
-            
+
             // När timern når noll, välj en ny plats att vandra till
             if (wanderTimer <= 0)
             {
@@ -361,14 +439,14 @@ public class NPCShirtlessZombie : MonoBehaviour
         Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
         randomDirection.y = 0;
         Vector3 randomPosition = startPosition + randomDirection;
-        
+
         // Försäkra att destinationen är på NavMesh (om NavMesh används)
         NavMeshHit navHit;
         if (NavMesh.SamplePosition(randomPosition, out navHit, wanderRadius, NavMesh.AllAreas))
         {
             return navHit.position;
         }
-        
+
         // Om ingen NavMesh-position hittades, använd bara den slumpmässiga positionen
         return randomPosition;
     }
@@ -378,11 +456,19 @@ public class NPCShirtlessZombie : MonoBehaviour
         if (animator == null) return;
 
         // Uppdatera animationsparametrar baserat på tillstånd
-        if (playerDetected && !isDead)
+        if (isChasing && !isDead)
         {
-            // Zombien rör sig mot spelaren
-            animator.SetFloat("VelocityY", 1); // Framåt rörelse
-            animator.SetFloat("VelocityX", 0); // Ingen sidrörelser
+            if (Vector3.Distance(transform.position, player.position) > playerDistanceLastFrame)
+            {
+                // Snabbare animation när zombien jagar en flyende spelare
+                animator.SetFloat("VelocityY", 1.5f); // Springande animation
+            }
+            else
+            {
+                // Normal jagtanimation
+                animator.SetFloat("VelocityY", 1.0f); // Normalt tempo
+            }
+            animator.SetFloat("VelocityX", 0);
         }
         else if (isWandering && !isDead)
         {
@@ -412,6 +498,14 @@ public class NPCShirtlessZombie : MonoBehaviour
             animator.SetTrigger("TakeDamage");
         }
 
+        // När zombien tar skada blir den medveten om spelaren
+        if (player != null && !isChasing)
+        {
+            isChasing = true;
+            chaseTimer = memoryDuration;
+            lastKnownPlayerPosition = player.position;
+        }
+
         // Kontrollera om zombien har dött
         if (currentHealth <= 0)
         {
@@ -434,7 +528,7 @@ public class NPCShirtlessZombie : MonoBehaviour
         {
             animator.SetTrigger("Die");
             animator.SetBool("IsDead", true);
-            
+
             // Återställ eventuella pågående animationer
             animator.SetBool("IsBiting", false);
             animator.SetFloat("VelocityY", 0);
@@ -492,10 +586,14 @@ public class NPCShirtlessZombie : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
+        // Rita utökat jaktområde
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.3f); // Orange, halvtransparent
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
+
         // Rita attackområdet
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-        
+
         // Rita vandringsradien
         Gizmos.color = Color.blue;
         if (Application.isPlaying)
@@ -506,13 +604,21 @@ public class NPCShirtlessZombie : MonoBehaviour
         {
             Gizmos.DrawWireSphere(transform.position, wanderRadius);
         }
-        
+
         // Om vi vandrar, visa målpunkten
         if (Application.isPlaying && isWandering)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(targetPosition, 0.3f);
             Gizmos.DrawLine(transform.position, targetPosition);
+        }
+
+        // Om zombien minns senaste spelarposition
+        if (Application.isPlaying && isChasing && !playerInSight)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(lastKnownPlayerPosition, 0.5f);
+            Gizmos.DrawLine(transform.position, lastKnownPlayerPosition);
         }
     }
 }

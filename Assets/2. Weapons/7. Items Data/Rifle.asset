@@ -18,7 +18,8 @@ MonoBehaviour:
   tooltipText: 
   itemType: 3
   rarity: 5
-  itemPrefab: {fileID: 1221602686079960, guid: dda5d32a2ba08d94599e5aa88a54a366, type: 3}
+  itemPrefab: {fileID: 4163472880114765530, guid: c5e947cb43df92e41b52c93505552666,
+    type: 3}
   isStackable: 0
   useCustomStackSize: 0
   maxStackSize: 24
