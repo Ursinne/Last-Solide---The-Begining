@@ -13,7 +13,7 @@ public class Zombie234 : MonoBehaviour
     public float attackCooldown = 2.0f;
     public float health = 100f;
     public float maxHealth = 100f;
-    
+
     [Header("Debug Settings")]
     public bool ignorePlayer = false; // Ändrat standardvärde till false
 
@@ -41,7 +41,7 @@ public class Zombie234 : MonoBehaviour
     {
         // Spara startposition
         startPosition = transform.position;
-        
+
         // Initiera hälsa
         health = maxHealth;
 
@@ -85,6 +85,13 @@ public class Zombie234 : MonoBehaviour
     {
         if (isDead) return;
 
+        // Hitta spelare om den är null
+        if (player == null)
+        {
+            FindPlayer();
+            return;
+        }
+
         // Om vi ignorerar spelaren, koncentrera oss bara på vandring
         if (ignorePlayer)
         {
@@ -93,51 +100,59 @@ public class Zombie234 : MonoBehaviour
             return;
         }
 
-        // Normal logik när vi inte ignorerar spelaren
-        if (player != null)
+        // Beräkna avstånd till spelare
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        Debug.Log($"Zombie status: " +
+                  $"Avstånd={distanceToPlayer}, " +
+                  $"DetektionsRäckvidd={detectionRange}, " +
+                  $"AttackRäckvidd={attackRange}, " +
+                  $"NavMeshAgent={agent != null}, " +
+                  $"AgentEnabled={agent?.enabled ?? false}");
+
+        // Detektera spelare
+        playerDetected = distanceToPlayer <= detectionRange;
+
+        if (playerDetected)
         {
-            // Beräkna avstånd till spelare
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            
-            // Debugging
-            Debug.Log($"Avstånd till spelare: {distanceToPlayer}, Detektionsräckvidd: {detectionRange}");
-
-            // Detektera spelare
-            playerDetected = distanceToPlayer <= detectionRange;
-
-            if (playerDetected)
+            // Jaga eller attackera spelare
+            if (distanceToPlayer > attackRange)
             {
-                // Jaga eller attackera spelare
-                if (distanceToPlayer > attackRange)
-                {
-                    Debug.Log("Spelaren upptäckt! Jagar...");
-                    ChasePlayer();
-                    
-                    // Inte längre vandrande när spelaren är upptäckt
-                    isWandering = false;
-                }
-                else
-                {
-                    Debug.Log("Spelaren inom attackräckvidd!");
-                    AttackPlayer();
-                    isWandering = false;
-                }
+                Debug.Log("Spelaren upptäckt! Jagar...");
+                ChasePlayer();
+                isWandering = false;
             }
             else
             {
-                // Hantera vandringsbeteende när spelaren inte är upptäckt
-                Debug.Log("Spelaren ej upptäckt, fortsätter vandra");
-                HandleWandering();
+                Debug.Log("Spelaren inom attackräckvidd!");
+                AttackPlayer();
+                isWandering = false;
             }
         }
         else
         {
-            // Ingen spelare hittad, bara vandra
+            // Hantera vandringsbeteende när spelaren inte är upptäckt
+            Debug.Log("Spelaren ej upptäckt, fortsätter vandra");
             HandleWandering();
         }
 
         // Uppdatera animationer
         UpdateAnimations();
+    }
+
+    void FindPlayer()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+            Debug.Log("Spelare återfunnen: " + player.name);
+        }
+        else
+        {
+            Debug.LogError("Ingen spelare hittad!");
+            HandleWandering(); // Fortsätt vandra även om ingen spelare hittats
+        }
     }
 
     void HandleWandering()
@@ -178,12 +193,12 @@ public class Zombie234 : MonoBehaviour
         Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
         randomDirection.y = 0;
         wanderTarget = startPosition + randomDirection;
-        
+
         isWandering = true;
         wanderTimer = Random.Range(minWanderTime, maxWanderTime);
-        
+
         Debug.Log($"Ny vandringsmål: {wanderTarget}, avstånd: {Vector3.Distance(transform.position, wanderTarget)}");
-        
+
         // Om vi har en agent, använd NavMesh
         if (agent != null && agent.enabled)
         {
@@ -199,7 +214,7 @@ public class Zombie234 : MonoBehaviour
             {
                 Debug.LogWarning("Kunde inte hitta en valid NavMesh-position. Försöker med en närmare position.");
                 // Försök med en position närmare zombien
-                if (NavMesh.SamplePosition(transform.position + Random.insideUnitSphere * (wanderRadius * 0.5f), 
+                if (NavMesh.SamplePosition(transform.position + Random.insideUnitSphere * (wanderRadius * 0.5f),
                                          out hit, wanderRadius * 0.5f, NavMesh.AllAreas))
                 {
                     agent.SetDestination(hit.position);
@@ -221,21 +236,21 @@ public class Zombie234 : MonoBehaviour
             }
         }
     }
-    
+
     // En enkel wandringsrutin som inte kräver NavMeshAgent
     private IEnumerator SimpleWandering()
     {
         Vector3 targetPos = transform.position + Random.insideUnitSphere * wanderRadius;
         targetPos.y = transform.position.y;
-        
+
         Vector3 direction = (targetPos - transform.position).normalized;
         float duration = Random.Range(3f, 8f);
         float timer = 0f;
-        
+
         while (timer < duration && isWandering)
         {
             timer += Time.deltaTime;
-            
+
             if (controller != null && controller.enabled)
             {
                 controller.SimpleMove(direction * walkSpeed);
@@ -244,15 +259,15 @@ public class Zombie234 : MonoBehaviour
             {
                 transform.position += direction * walkSpeed * Time.deltaTime;
             }
-            
+
             // Rotation
-            transform.rotation = Quaternion.Slerp(transform.rotation, 
-                                                Quaternion.LookRotation(direction), 
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                                                Quaternion.LookRotation(direction),
                                                 2f * Time.deltaTime);
-                                                
+
             yield return null;
         }
-        
+
         // Välj en ny riktning
         wanderTimer = 0.1f;
     }
@@ -272,12 +287,12 @@ public class Zombie234 : MonoBehaviour
         {
             // Stoppa eventuell vandring och ställ in förföljning
             StopWandering();
-            
+
             // Sätt spelarens position som mål
             agent.isStopped = false;
             agent.SetDestination(player.position);
             agent.speed = runSpeed;
-            
+
             Debug.Log($"Jagar spelare: speed={runSpeed}, path={agent.pathStatus}, remaining={agent.remainingDistance}");
         }
         else
@@ -285,7 +300,7 @@ public class Zombie234 : MonoBehaviour
             // Manuell förföljning om NavMeshAgent inte fungerar
             Vector3 direction = (player.position - transform.position).normalized;
             direction.y = 0;
-            
+
             // Använd CharacterController om möjligt
             if (controller != null && controller.enabled)
             {
@@ -298,7 +313,7 @@ public class Zombie234 : MonoBehaviour
                 transform.position += direction * runSpeed * Time.deltaTime;
                 Debug.Log($"Jagar spelare med direkt positionering: direction={direction}, speed={runSpeed}");
             }
-            
+
             // Rotera mot spelaren
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -351,25 +366,34 @@ public class Zombie234 : MonoBehaviour
     {
         if (animator == null) return;
 
-        float distanceToPlayer = player ? Vector3.Distance(transform.position, player.position) : float.MaxValue;
-        
-        // Uppdaterade villkor - separera beräkningar från debugging
-        bool shouldAttack = !ignorePlayer && playerDetected && distanceToPlayer <= attackRange;
+        // Fallback om ingen spelare är hittad
+        float distanceToPlayer = player != null
+            ? Vector3.Distance(transform.position, player.position)
+            : float.MaxValue;
+
+        // Detaljerade villkor för animationer
+        bool shouldWander = !playerDetected || (ignorePlayer && agent != null && !agent.hasPath);
         bool shouldChase = !ignorePlayer && playerDetected && distanceToPlayer > attackRange;
-        
+        bool shouldAttack = !ignorePlayer && playerDetected && distanceToPlayer <= attackRange;
+
         // Sätt animationsparametrar tydligt
-        animator.SetBool("isWalking", isWandering);
+        animator.SetBool("isWalking", shouldWander);
         animator.SetBool("isRunning", shouldChase);
-        
-        // Om animator har dessa parametrar
+
+        // Hantera attack-trigger
         if (shouldAttack)
         {
-            // Använd inte en bool för attack, utan en trigger
             animator.SetTrigger("Attack");
         }
-        
+
         // Debug-utskrift efter att alla animationer är satta
-        Debug.Log($"Animation: Walking={isWandering}, Running={shouldChase}, Attack={shouldAttack}");
+        Debug.Log($"Animation: " +
+                  $"Walking={shouldWander}, " +
+                  $"Running={shouldChase}, " +
+                  $"Attack={shouldAttack}, " +
+                  $"PlayerDetected={playerDetected}, " +
+                  $"IgnorePlayer={ignorePlayer}, " +
+                  $"AgentHasPath={agent?.hasPath ?? false}");
     }
 
     public void TakeDamage(float damage)

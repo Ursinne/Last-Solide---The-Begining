@@ -2469,7 +2469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &57539130
 Transform:
   m_ObjectHideFlags: 0
@@ -9468,7 +9468,7 @@ PrefabInstance:
     - target: {fileID: 1119576973216950623, guid: d58be77cba3adf54cb14b15052b86514,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1795776245287730608, guid: d58be77cba3adf54cb14b15052b86514,
         type: 3}
@@ -9518,6 +9518,11 @@ PrefabInstance:
     - target: {fileID: 1795776245287730608, guid: d58be77cba3adf54cb14b15052b86514,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756413712544843140, guid: d58be77cba3adf54cb14b15052b86514,
+        type: 3}
+      propertyPath: ignorePlayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8275854522725946571, guid: d58be77cba3adf54cb14b15052b86514,
@@ -17698,6 +17703,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeerMale_URP (Min)
       objectReference: {fileID: 0}
+    - target: {fileID: 8206147618817654582, guid: 6e99de1f177a2304da67c6a6e06a851c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8277113452284505171, guid: 6e99de1f177a2304da67c6a6e06a851c,
         type: 3}
       propertyPath: m_Avatar
@@ -22123,7 +22133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &816886582
 Transform:
   m_ObjectHideFlags: 0
@@ -25013,7 +25023,7 @@ PrefabInstance:
     - target: {fileID: 7940210027991285539, guid: 40d131217b4f29145b9692b7008baf4a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -57755,7 +57765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1696993459
 Transform:
   m_ObjectHideFlags: 0
@@ -86732,6 +86742,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5450977162077009543, guid: 6079d835bb157914c88ba6723f61fda7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8861614868083885503, guid: 6079d835bb157914c88ba6723f61fda7,
         type: 3}
       propertyPath: m_StoppingDistance
@@ -87422,6 +87437,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1235029390255621906, guid: da8da2ff608dcb3449e09e99c305fe5a,
         type: 3}
+      propertyPath: m_Height
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235029390255621906, guid: da8da2ff608dcb3449e09e99c305fe5a,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235029390255621906, guid: da8da2ff608dcb3449e09e99c305fe5a,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: -0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235029390255621906, guid: da8da2ff608dcb3449e09e99c305fe5a,
+        type: 3}
       propertyPath: m_StoppingDistance
       value: 2
       objectReference: {fileID: 0}
@@ -87483,7 +87513,12 @@ PrefabInstance:
     - target: {fileID: 7350864319207641598, guid: da8da2ff608dcb3449e09e99c305fe5a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8385050640032180405, guid: da8da2ff608dcb3449e09e99c305fe5a,
+        type: 3}
+      propertyPath: m_Height
+      value: 1.54
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -87491,7 +87526,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7350864319207641598, guid: da8da2ff608dcb3449e09e99c305fe5a,
         type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 919132149339481262}
   m_SourcePrefab: {fileID: 100100000, guid: da8da2ff608dcb3449e09e99c305fe5a, type: 3}
 --- !u!224 &2535972618747230068
@@ -89680,6 +89715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Primitive Character 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 724740352932754336, guid: 0bbcc892d807534498f8c5d2ebda0b93,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7329040371639895382, guid: 0bbcc892d807534498f8c5d2ebda0b93,
         type: 3}
@@ -94436,6 +94476,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Primitive Character 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6886425697101417848, guid: e20c6a6ce3a044d42a6fe65699f2f40d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -95529,6 +95574,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Primitive Character 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7049246910914943406, guid: ae2f0a6d26a1383429fb182efb57709c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -95554,6 +95604,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prmitive Character 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 31425074236083987, guid: 2641d01c5dc8a7643a2953bcf9e5d735,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 510974747091305248, guid: 2641d01c5dc8a7643a2953bcf9e5d735,
         type: 3}
@@ -100018,6 +100073,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Primitive Character 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8406238172665640829, guid: c5bb581be4881344f8e015f70e53238f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8421972155212152690, guid: c5bb581be4881344f8e015f70e53238f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -101945,11 +102005,11 @@ SceneRoots:
   - {fileID: 1802880131}
   - {fileID: 196375506}
   - {fileID: 82346858}
+  - {fileID: 276871607}
   - {fileID: 57539130}
   - {fileID: 2185932781275766420}
   - {fileID: 816886582}
   - {fileID: 948366984}
-  - {fileID: 276871607}
   - {fileID: 326831787}
   - {fileID: 1581049389061717450}
   - {fileID: 1879279000}
