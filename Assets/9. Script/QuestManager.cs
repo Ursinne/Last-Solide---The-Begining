@@ -152,19 +152,19 @@ public class QuestManager : MonoBehaviour
     {
         if (activeQuests.Count >= maxActiveQuests)
         {
-            Debug.LogWarning("Max antal aktiva quests nått!");
+            //Debug.LogWarning("Max antal aktiva quests nått!");
             return;
         }
 
         if (completedQuestNames.Contains(quest.name))
         {
-            Debug.Log($"Quest {quest.name} är redan slutförd");
+            //Debug.Log($"Quest {quest.name} är redan slutförd");
             return;
         }
 
         if (activeQuests.Exists(aq => aq.QuestData.name == quest.name))
         {
-            Debug.Log($"Quest {quest.name} är redan aktiv");
+            //Debug.Log($"Quest {quest.name} är redan aktiv");
             return;
         }
 

@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
             // Add more special abilities here
         };
 
-        Debug.Log($"Willpower initialized to: {willpower}/{maxWillpower}");
+        //Debug.Log($"Willpower initialized to: {willpower}/{maxWillpower}");
     }
 
     private void Start()

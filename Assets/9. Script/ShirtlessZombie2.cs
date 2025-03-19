@@ -497,7 +497,7 @@
             }
             else
             {
-                Debug.LogError("CharacterController saknas eller är inaktiverad på zombie!");
+                //Debug.LogError("CharacterController saknas eller är inaktiverad på zombie!");
             }
         }
 
