@@ -27,12 +27,6 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: isBiting
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -88,7 +82,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 5be0b7c48899cba43aa62b6f44bb0773,
       type: 3}
-    m_Threshold: 0.25
+    m_Threshold: 0.125
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -97,8 +91,17 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 612828c1b7be1fd418244970ccf6852f,
       type: 3}
-    m_Threshold: 0.5
+    m_Threshold: 0.25
     m_Position: {x: 0, y: 2}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Blend
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 659de794cd21b3e40b7645080a253064,
+      type: 3}
+    m_Threshold: 0.375
+    m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
@@ -106,7 +109,7 @@ BlendTree:
   m_BlendParameter: VelocityX
   m_BlendParameterY: VelocityY
   m_MinThreshold: 0
-  m_MaxThreshold: 0.5
+  m_MaxThreshold: 0.375
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 2

@@ -21,6 +21,8 @@ namespace Invector.vCharacterController
         [HideInInspector] public vThirdPersonCamera tpCamera;
         [HideInInspector] public Camera cameraMain;
 
+        public Transform Aimball;            //-------------------------------
+
         #endregion
 
         protected virtual void Start()
@@ -79,7 +81,21 @@ namespace Invector.vCharacterController
             SprintInput();
             StrafeInput();
             JumpInput();
+            Aim();                //------------------------------
         }
+
+
+        private void Aim()
+        {
+            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);  // Räkna ut vart mitten av skärmen är
+            Ray ray = Camera.main.ScreenPointToRay(screenCenter);                       // Skapa en ray från mitten av skärmen
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f))                         // Skjut iväg rayen 1000m mot skärmens mitt.
+            {
+                Aimball.position = hit.point;                                           // Sätt aimballens position till där rayen träffade.
+                Debug.Log("Träffade objekt: " + hit.collider.gameObject.name);
+            }
+        }
+        
 
         public virtual void MoveInput()
         {
